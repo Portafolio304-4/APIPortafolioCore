@@ -1,0 +1,14 @@
+C:\Users\Sebastian\source\repos\ApiPortafolioCore\Model\bin\Debug\netcoreapp2.1\Model.deps.json
+C:\Users\Sebastian\source\repos\ApiPortafolioCore\Model\bin\Debug\netcoreapp2.1\Model.dll
+C:\Users\Sebastian\source\repos\ApiPortafolioCore\Model\obj\Debug\netcoreapp2.1\Model.csprojAssemblyReference.cache
+C:\Users\Sebastian\source\repos\ApiPortafolioCore\Model\obj\Debug\netcoreapp2.1\Model.csproj.CoreCompileInputs.cache
+C:\Users\Sebastian\source\repos\ApiPortafolioCore\Model\obj\Debug\netcoreapp2.1\Model.AssemblyInfoInputs.cache
+C:\Users\Sebastian\source\repos\ApiPortafolioCore\Model\obj\Debug\netcoreapp2.1\Model.AssemblyInfo.cs
+C:\Users\Sebastian\source\repos\ApiPortafolioCore\Model\bin\Debug\netcoreapp2.1\Model.pdb
+C:\Users\Sebastian\source\repos\ApiPortafolioCore\Model\bin\Debug\netcoreapp2.1\DTOs.dll
+C:\Users\Sebastian\source\repos\ApiPortafolioCore\Model\bin\Debug\netcoreapp2.1\Newtonsoft.Json.dll
+C:\Users\Sebastian\source\repos\ApiPortafolioCore\Model\bin\Debug\netcoreapp2.1\DTOs.pdb
+C:\Users\Sebastian\source\repos\ApiPortafolioCore\Model\bin\Debug\netcoreapp2.1\Newtonsoft.Json.xml
+C:\Users\Sebastian\source\repos\ApiPortafolioCore\Model\obj\Debug\netcoreapp2.1\Model.csproj.CopyComplete
+C:\Users\Sebastian\source\repos\ApiPortafolioCore\Model\obj\Debug\netcoreapp2.1\Model.dll
+C:\Users\Sebastian\source\repos\ApiPortafolioCore\Model\obj\Debug\netcoreapp2.1\Model.pdb
