@@ -179,7 +179,7 @@ namespace Model
             OracleCommand command = new OracleCommand();
             command.CommandText = sql;
             command.Connection = this.Conn.Connection;
-            command.Parameters.Add(new OracleParameter(":nombre", OracleDbType.Int32)).Value = 0;
+            command.Parameters.Add(new OracleParameter(":habilitado", OracleDbType.Int32)).Value = 0;
             command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = this.Comuna.Id;
 
             try

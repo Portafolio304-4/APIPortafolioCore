@@ -1,30 +1,30 @@
-﻿using System;
+﻿using DTOs;
+using Oracle.ManagedDataAccess.Client;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using DTOs;
-using Oracle.ManagedDataAccess.Client;
 
 namespace Model
 {
-    public class ProvinciaModel
+    public class TipoUsuarioModel
     {
         private Conexion conn;
-        private Provincia provincia;
+        private TipoUsuario tipo_usuario;
 
-        public ProvinciaModel(Provincia provincia)
+        public TipoUsuarioModel(TipoUsuario tipo_usuario)
         {
-            this.Provincia = provincia;
+            this.Tipo_usuario = tipo_usuario;
         }
 
         public Conexion Conn { get => conn; set => conn = value; }
-        public Provincia Provincia { get => provincia; set => provincia = value; }
+        public TipoUsuario Tipo_usuario { get => tipo_usuario; set => tipo_usuario = value; }
 
-        public List<Provincia> GetProvincias()
+        public List<TipoUsuario> GetTipos()
         {
             this.Conn = new Conexion();
 
-            List<Provincia> lista_provincias = new List<Provincia>();
-            string sql = "SELECT * FROM PROVINCIA WHERE habilitado=1";
+            List<TipoUsuario> lista_tipos_usuario = new List<TipoUsuario>();
+            string sql = "SELECT * FROM TIPO_USUARIO WHERE habilitado=1";
 
             OracleCommand command = new OracleCommand(sql, this.Conn.Connection);
             OracleDataReader reader = command.ExecuteReader();
@@ -33,62 +33,36 @@ namespace Model
                 int id = reader.GetInt32(0);
                 string nombre = reader.GetString(1);
 
-                Provincia provincia = new Provincia(id, nombre);
-                lista_provincias.Add(provincia);
+                TipoUsuario tipo_usuario = new TipoUsuario(id, nombre);
+                lista_tipos_usuario.Add(tipo_usuario);
 
             }
 
             this.Conn.Connection.Close();
             command.Dispose();
 
-            return lista_provincias;
+            return lista_tipos_usuario;
         }
 
-        public List<Provincia> GetProvinciasByRegion()
-        {
-            this.Conn = new Conexion();
+        public bool ReadById() {
 
-            List<Provincia> lista_provincias = new List<Provincia>();
-            string sql = "SELECT * FROM PROVINCIA WHERE habilitado=1 AND id_region=:id_region";
-
-            OracleCommand command = new OracleCommand(sql, this.Conn.Connection);
-            command.Parameters.Add(new OracleParameter("id_region", OracleDbType.Int32)).Value = this.Provincia.Id_region;
-            OracleDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                int id = reader.GetInt32(0);
-                string nombre = reader.GetString(1);
-
-                Provincia provincia = new Provincia(id, nombre);
-                lista_provincias.Add(provincia);
-
-            }
-
-            this.Conn.Connection.Close();
-            command.Dispose();
-
-            return lista_provincias;
-        }
-
-        public bool ReadById()
-        {
             bool found = false;
             this.Conn = new Conexion();
 
-            string sql = "SELECT * FROM PROVINCIA WHERE id_provincia=:id";
+            string sql = "SELECT * FROM TIPO_USUARIO WHERE id_tipo_usuario=:id";
 
             OracleCommand command = new OracleCommand();
             command.CommandText = sql;
             command.Connection = this.Conn.Connection;
-            command.Parameters.Add(new OracleParameter("id", OracleDbType.Int32)).Value = this.Provincia.Id;
+            command.Parameters.Add(new OracleParameter("id", OracleDbType.Int32)).Value = this.Tipo_usuario.Id;
             OracleDataReader reader = command.ExecuteReader();
             try
             {
                 while (reader.Read())
                 {
-                    this.Provincia.Id = reader.GetInt32(0);
-                    this.Provincia.Nombre = reader.GetString(1);
-                    this.Provincia.Habilitado = reader.GetInt32(2);
+                    this.Tipo_usuario.Id = reader.GetInt32(0);
+                    this.Tipo_usuario.Nombre = reader.GetString(1);
+                    this.Tipo_usuario.Habilitado = reader.GetInt32(2);
                 }
                 if (reader.HasRows)
                     found = true;
@@ -103,6 +77,7 @@ namespace Model
             command.Dispose();
 
             return found;
+
         }
 
         public bool Create()
@@ -110,13 +85,12 @@ namespace Model
             bool created = false;
             this.Conn = new Conexion();
 
-            string sql = "INSERT INTO PROVINCIA (nombre_provincia,id_region) VALUES (:nombre,:id_region)";
+            string sql = "INSERT INTO TIPO_USUARIO (nombre_tipo_usuario) VALUES (:nombre)";
 
             OracleCommand command = new OracleCommand();
             command.CommandText = sql;
             command.Connection = this.Conn.Connection;
-            command.Parameters.Add(new OracleParameter("nombre", OracleDbType.Varchar2)).Value = this.Provincia.Nombre;
-            command.Parameters.Add(new OracleParameter("id_region", OracleDbType.Int32)).Value = this.Provincia.Id_region;
+            command.Parameters.Add(new OracleParameter("nombre", OracleDbType.Varchar2)).Value = this.Tipo_usuario.Nombre;
 
             try
             {
@@ -143,13 +117,13 @@ namespace Model
             bool updated = false;
             this.Conn = new Conexion();
 
-            string sql = "UPDATE PROVINCIA SET nombre_provincia=:nombre WHERE id_provincia=:id";
+            string sql = "UPDATE TIPO_USUARIO SET nombre_tipo_usuario=:nombre WHERE id_tipo_usuario=:id";
 
             OracleCommand command = new OracleCommand();
             command.CommandText = sql;
             command.Connection = this.Conn.Connection;
-            command.Parameters.Add(new OracleParameter(":nombre", OracleDbType.Varchar2)).Value = this.Provincia.Nombre;
-            command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = this.Provincia.Id;
+            command.Parameters.Add(new OracleParameter(":nombre", OracleDbType.Varchar2)).Value = this.Tipo_usuario.Nombre;
+            command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = this.Tipo_usuario.Id;
 
             try
             {
@@ -174,13 +148,13 @@ namespace Model
             bool deleted = false;
             this.Conn = new Conexion();
 
-            string sql = "UPDATE PROVINCIA SET habilitado=:habilitado WHERE id_provincia=:id";
+            string sql = "UPDATE TIPO_USUARIO SET habilitado=:habilitado WHERE id_tipo_usuario=:id";
 
             OracleCommand command = new OracleCommand();
             command.CommandText = sql;
             command.Connection = this.Conn.Connection;
             command.Parameters.Add(new OracleParameter(":habilitado", OracleDbType.Int32)).Value = 0;
-            command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = this.Provincia.Id;
+            command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = this.Tipo_usuario.Id;
 
             try
             {
@@ -198,7 +172,10 @@ namespace Model
             command.Dispose();
 
             return deleted;
-
         }
+
+        
     }
+
+    
 }
