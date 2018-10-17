@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace DTOs
@@ -44,10 +46,27 @@ namespace DTOs
         }
 
         public int Id { get => id; set => id = value; }
+
+        [Required(ErrorMessage = "El nombre de usuario es obligatiorio")]
+        [StringLength(80,MinimumLength = 5, ErrorMessage = "el nombre de usuario debe tener entre 5 y 80 caracteres")]
         public string Username { get => username; set => username = value; }
+
+        [Required(ErrorMessage = "El email es obligatiorio")]
+        [EmailAddress(ErrorMessage = "El email no tiene un formato valido")]
+        [StringLength(120, ErrorMessage = "El email es obligatiorio")]
         public string Email { get => email; set => email = value; }
+
+        [JsonIgnore]
+        [Required(ErrorMessage = "La contraseña es obligatoria")]
+        [StringLength(80, ErrorMessage = "La contraseña puede tener como maximo 80 caracteres")]
         public string Contrasena { get => contrasena; set => contrasena = value; }
+
+        [JsonIgnore]
         public int Habilitado { get => habilitado; set => habilitado = value; }
+
+        [Required(ErrorMessage = "el tipo de usuario es obligatorio")]
+        [Range(0,999, ErrorMessage = "El tipo de usuario es invalido")]
         public int Id_tipo_usuario { get => id_tipo_usuario; set => id_tipo_usuario = value; }
+
     }
 }
