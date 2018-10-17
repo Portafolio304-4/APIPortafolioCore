@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using Model;
 
 namespace ApiPortafolioCore.Controllers
@@ -13,6 +18,8 @@ namespace ApiPortafolioCore.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
+
+        public readonly IConfiguration _configuration;
         // endpoint o punto de salida
 
         // GET api/usuario -> va a traer todos los usuarios
@@ -50,6 +57,16 @@ namespace ApiPortafolioCore.Controllers
         [HttpGet("auth")]
         public JsonResult Auth(string username, string contrasena)
         {
+            Usuario usuario = new Usuario();
+            usuario.Username = username;
+            usuario.Contrasena = contrasena;
+            UsuarioModel usuarioQuery = new UsuarioModel(usuario);
+            if (usuarioQuery.ReadByUsername())
+            {
+                object token = BuildToken(usuarioQuery.Usuario);
+                return new JsonResult(token);
+            }
+            
             return new JsonResult("autentificacion");
         }
 
@@ -110,6 +127,32 @@ namespace ApiPortafolioCore.Controllers
                 ResponseMenssage response = new ResponseMenssage("error", "no se pudo eliminar el usuario");
                 return new JsonResult(response);
             }
+        }
+
+        private IActionResult BuildToken(Usuario usuario)
+        {
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.UniqueName, usuario.Username),
+                new Claim(JwtRegisteredClaimNames.Email, usuario.Email),
+                new Claim("Tipo Usuario", usuario.Id_tipo_usuario.ToString()),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["secret_key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            JwtSecurityToken token = new JwtSecurityToken(
+                issuer:"ontour.com",
+                audience:"ontour.com",
+                claims:claims,
+                signingCredentials: creds
+                );
+            return Ok(new
+            {
+                token = new JwtSecurityTokenHandler().WriteToken(token)
+            });
+            
         }
     }
 }

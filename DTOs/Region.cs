@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DTOs
 {
@@ -32,7 +33,8 @@ namespace DTOs
 
         public int Id { get => id; set => id = value; }
 
-        [JsonRequired]
+        [Required(ErrorMessage = "El nombre es obligatiorio")]
+        [StringLength(80, MinimumLength = 5, ErrorMessage = "el nombre debe tener entre 5 y 80 caracteres")]
         public string Nombre { get => nombre; set => nombre = value; }
         
         [JsonIgnore]

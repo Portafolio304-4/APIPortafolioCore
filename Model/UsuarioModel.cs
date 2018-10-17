@@ -119,28 +119,36 @@ namespace Model
             // generar conexion
             this.Conn = new Conexion();
             // definir query con parametros variables
-            string sql = "INSERT INTO USUARIO(username,contrasena,id_tipo_usuario,email)" +
-                " VALUES(:username,:contrasena,:id_tipo_usuario,:email)";
-            // generar objeto de comando
-            OracleCommand command = new OracleCommand(sql, this.Conn.Connection);
-            // rellenar parametros variables de la query
-            command.Parameters.Add(new OracleParameter("username", OracleDbType.Varchar2)).Value = usuario.Username;
-            command.Parameters.Add(new OracleParameter("contrasena", OracleDbType.Varchar2)).Value = usuario.Contrasena;
-            command.Parameters.Add(new OracleParameter("id_tipo_usuario", OracleDbType.Int32)).Value = usuario.Id_tipo_usuario;
-            command.Parameters.Add(new OracleParameter("email", OracleDbType.Varchar2)).Value = usuario.Email;
 
-            try
+            if (!this.ReadByUsername())
             {
-                int rowsUpdate = command.ExecuteNonQuery();
-                if (rowsUpdate > 0)
-                    created = true;
 
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+                string sql = "INSERT INTO USUARIO(username,contrasena,id_tipo_usuario,email)" +
+                    " VALUES(:username,:contrasena,:id_tipo_usuario,:email)";
+                // generar objeto de comando
+                OracleCommand command = new OracleCommand(sql, this.Conn.Connection);
 
+                // encyptar contraseña
+                usuario.Contrasena = Seguridad.Encriptar(usuario.Contrasena);
+
+                // rellenar parametros variables de la query
+                command.Parameters.Add(new OracleParameter("username", OracleDbType.Varchar2)).Value = usuario.Username;
+                command.Parameters.Add(new OracleParameter("contrasena", OracleDbType.Varchar2)).Value = usuario.Contrasena;
+                command.Parameters.Add(new OracleParameter("id_tipo_usuario", OracleDbType.Int32)).Value = usuario.Id_tipo_usuario;
+                command.Parameters.Add(new OracleParameter("email", OracleDbType.Varchar2)).Value = usuario.Email;
+
+                try
+                {
+                    int rowsUpdate = command.ExecuteNonQuery();
+                    if (rowsUpdate > 0)
+                        created = true;
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
             return created;
         }
 
@@ -153,6 +161,10 @@ namespace Model
             string sql = "UPDATE USUARIO SET contrasena=:contrasena WHERE id_usuario=:id AND habilitado=1";
             // generar objeto de comando
             OracleCommand command = new OracleCommand(sql, this.Conn.Connection);
+
+            // encyptar contraseña
+            usuario.Contrasena = Seguridad.Encriptar(usuario.Contrasena);
+
             // rellenar parametros variables de la query
             command.Parameters.Add(new OracleParameter("contrasena", OracleDbType.Varchar2)).Value = usuario.Contrasena;
             command.Parameters.Add(new OracleParameter("id", OracleDbType.Int32)).Value = usuario.Id;
