@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "aa6ed5c27d432fbc8f1d60a5b3156f220492cb43"
+    "signature": "a5793f2b47d4ec3d00230850ffcdaa94a1156d3a"
   },
   "compilationOptions": {},
   "targets": {
@@ -9,11 +9,20 @@
       "Model/1.0.0": {
         "dependencies": {
           "DTOs": "1.0.0",
+          "Newtonsoft.Json": "11.0.2",
           "Oracle.ManagedDataAccess.Core": "2.18.3",
           "Microsoft.Extensions.Identity.Stores": "2.1.1.0"
         },
         "runtime": {
           "Model.dll": {}
+        }
+      },
+      "Newtonsoft.Json/11.0.2": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.2.21924"
+          }
         }
       },
       "Oracle.ManagedDataAccess.Core/2.18.3": {
@@ -26,7 +35,7 @@
       },
       "DTOs/1.0.0": {
         "dependencies": {
-          "Newtonsoft.Json": "11.0.0.0"
+          "Newtonsoft.Json": "11.0.2"
         },
         "runtime": {
           "DTOs.dll": {}
@@ -39,14 +48,6 @@
             "fileVersion": "2.1.1.18157"
           }
         }
-      },
-      "Newtonsoft.Json.Reference/11.0.0.0": {
-        "runtime": {
-          "Newtonsoft.Json.dll": {
-            "assemblyVersion": "11.0.0.0",
-            "fileVersion": "11.0.2.21924"
-          }
-        }
       }
     }
   },
@@ -55,6 +56,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Newtonsoft.Json/11.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ==",
+      "path": "newtonsoft.json/11.0.2",
+      "hashPath": "newtonsoft.json.11.0.2.nupkg.sha512"
     },
     "Oracle.ManagedDataAccess.Core/2.18.3": {
       "type": "package",
@@ -69,11 +77,6 @@
       "sha512": ""
     },
     "Microsoft.Extensions.Identity.Stores/2.1.1.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Newtonsoft.Json.Reference/11.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

@@ -5,7 +5,7 @@ namespace Model
 {
     public class Conexion
     {
-        string connectionString = "DATA SOURCE=Bena:1521/XE;USER ID=ADMIN;PASSWORD=12345";
+        string connectionString = "DATA SOURCE=Bena:1521/XE;USER ID=PORTAFOLIO;PASSWORD=12345";
         OracleConnection _connection;
 
         public Conexion()

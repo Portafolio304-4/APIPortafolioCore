@@ -136,12 +136,12 @@ namespace Model
             OracleCommand command = new OracleCommand();
             command.CommandText = sql;
             command.Connection = this.Conn.Connection;
-            command.Parameters.Add(new OracleParameter("rut", OracleDbType.Varchar2)).Value = this.Alumno.Rut;
+            command.Parameters.Add(new OracleParameter("rut", OracleDbType.Int32)).Value = this.Alumno.Rut;
             command.Parameters.Add(new OracleParameter("dv_rut", OracleDbType.Varchar2)).Value = this.Alumno.Dv_rut;
             command.Parameters.Add(new OracleParameter("nombre", OracleDbType.Varchar2)).Value = this.Alumno.Nombre;
             command.Parameters.Add(new OracleParameter("ap_paterno", OracleDbType.Varchar2)).Value = this.Alumno.Ap_paterno;
             command.Parameters.Add(new OracleParameter("ap_materno", OracleDbType.Varchar2)).Value = this.Alumno.Ap_materno;
-            command.Parameters.Add(new OracleParameter("id_curso", OracleDbType.Varchar2)).Value = this.Alumno.Id_curso;
+            command.Parameters.Add(new OracleParameter("id_curso", OracleDbType.Int32)).Value = this.Alumno.Id_curso;
 
             try
             {
@@ -180,12 +180,12 @@ namespace Model
             OracleCommand command = new OracleCommand();
             command.CommandText = sql;
             command.Connection = this.Conn.Connection;
-            command.Parameters.Add(new OracleParameter("rut", OracleDbType.Varchar2)).Value = this.Alumno.Rut;
+            command.Parameters.Add(new OracleParameter("rut", OracleDbType.Int32)).Value = this.Alumno.Rut;
             command.Parameters.Add(new OracleParameter("dv_rut", OracleDbType.Varchar2)).Value = this.Alumno.Dv_rut;
             command.Parameters.Add(new OracleParameter("nombre", OracleDbType.Varchar2)).Value = this.Alumno.Nombre;
             command.Parameters.Add(new OracleParameter("ap_paterno", OracleDbType.Varchar2)).Value = this.Alumno.Ap_paterno;
             command.Parameters.Add(new OracleParameter("ap_materno", OracleDbType.Varchar2)).Value = this.Alumno.Ap_materno;
-            command.Parameters.Add(new OracleParameter("id_curso", OracleDbType.Varchar2)).Value = this.Alumno.Id_curso;
+            command.Parameters.Add(new OracleParameter("id_curso", OracleDbType.Int32)).Value = this.Alumno.Id_curso;
 
             try
             {

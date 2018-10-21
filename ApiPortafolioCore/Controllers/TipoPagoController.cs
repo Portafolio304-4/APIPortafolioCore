@@ -47,7 +47,7 @@ namespace ApiPortafolioCore.Controllers
             }
         }
 
-        // POST api/region
+        // POST api/tipopago
         [HttpPost]
         public JsonResult Post([FromBody]TipoPago tipo_pago)
         {

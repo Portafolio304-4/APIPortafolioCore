@@ -47,7 +47,7 @@ namespace ApiPortafolioCore.Controllers
             }
         }
 
-        // POST api/region
+        // POST api/tipousuario
         [HttpPost]
         public JsonResult Post([FromBody]TipoUsuario tipo_usuario)
         {

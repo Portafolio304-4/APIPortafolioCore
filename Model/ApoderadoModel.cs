@@ -104,7 +104,7 @@ namespace Model
             OracleCommand command = new OracleCommand();
             command.CommandText = sql;
             command.Connection = this.Conn.Connection;
-            command.Parameters.Add(new OracleParameter("rut", OracleDbType.Varchar2)).Value = this.Apoderado.Rut;
+            command.Parameters.Add(new OracleParameter("rut", OracleDbType.Int32)).Value = this.Apoderado.Rut;
             command.Parameters.Add(new OracleParameter("rut_dv", OracleDbType.Varchar2)).Value = this.Apoderado.Dv_rut;
             command.Parameters.Add(new OracleParameter("nombre", OracleDbType.Varchar2)).Value = this.Apoderado.Nombre;
             command.Parameters.Add(new OracleParameter("ap_paterno", OracleDbType.Varchar2)).Value = this.Apoderado.Ap_paterno;
@@ -150,7 +150,7 @@ namespace Model
             OracleCommand command = new OracleCommand();
             command.CommandText = sql;
             command.Connection = this.Conn.Connection;
-            command.Parameters.Add(new OracleParameter("rut", OracleDbType.Varchar2)).Value = this.Apoderado.Rut;
+            command.Parameters.Add(new OracleParameter("rut", OracleDbType.Int32)).Value = this.Apoderado.Rut;
             command.Parameters.Add(new OracleParameter("rut_dv", OracleDbType.Varchar2)).Value = this.Apoderado.Dv_rut;
             command.Parameters.Add(new OracleParameter("nombre", OracleDbType.Varchar2)).Value = this.Apoderado.Nombre;
             command.Parameters.Add(new OracleParameter("ap_paterno", OracleDbType.Varchar2)).Value = this.Apoderado.Ap_paterno;
