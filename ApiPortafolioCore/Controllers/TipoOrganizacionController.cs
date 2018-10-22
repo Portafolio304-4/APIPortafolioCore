@@ -47,7 +47,7 @@ namespace ApiPortafolioCore.Controllers
             }
         }
 
-        // POST api/region
+        // POST api/tipoorganizacion
         [HttpPost]
         public JsonResult Post([FromBody]TipoOrganizacion tipo_organizacion)
         {

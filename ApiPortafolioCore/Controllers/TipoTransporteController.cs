@@ -47,7 +47,7 @@ namespace ApiPortafolioCore.Controllers
             }
         }
 
-        // POST api/region
+        // POST api/tipotransporte
         [HttpPost]
         public JsonResult Post([FromBody]TipoTransporte tipo_transporte)
         {

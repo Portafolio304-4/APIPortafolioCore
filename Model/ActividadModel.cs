@@ -6,97 +6,69 @@ using System.Text;
 
 namespace Model
 {
-    public class CursoModel
+    public class ActividadModel
     {
         private Conexion conn;
-        private Curso curso;
+        private Actividad actividad;
 
-        public CursoModel( Curso curso)
+        public ActividadModel(Actividad actividad)
         {
-            this.Curso = curso;
+            this.Actividad = actividad;
         }
 
         public Conexion Conn { get => conn; set => conn = value; }
-        public Curso Curso { get => curso; set => curso = value; }
+        public Actividad Actividad { get => actividad; set => actividad = value; }
 
-        public List<Curso> GetCursos()
+        public List<Actividad> GetActividads()
         {
             this.Conn = new Conexion();
 
-            List<Curso> lista_curso = new List<Curso>();
-            string sql = "SELECT * FROM CURSO WHERE habilitado=1";
+            List<Actividad> lista_actividad = new List<Actividad>();
+            string sql = "SELECT * FROM ACTIVIDAD WHERE habilitado=1";
 
             OracleCommand command = new OracleCommand(sql, this.Conn.Connection);
             OracleDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
                 int id = reader.GetInt32(0);
-                string letra_curso = reader.GetString(1);
-                int id_organizacion = reader.GetInt32(2);
-                int habilitado = reader.GetInt32(3);
+                string nombre = reader.GetString(1);
+                int id_tipo_actividad = reader.GetInt32(2);
+                int precio_por_persona = reader.GetInt32(3);
+                int habilitado = reader.GetInt32(4);
 
-                Curso curso = new Curso(id, letra_curso, id_organizacion);
-                lista_curso.Add(curso);
-
-            }
-
-            this.Conn.Connection.Close();
-            command.Dispose();
-
-            return lista_curso;
-        }
-
-        public List<Curso> GetCursosByOrganizacion()
-        {
-            
-            this.Conn = new Conexion();
-
-            List<Curso> lista_curso = new List<Curso>();
-            string sql = "SELECT * FROM CURSO WHERE habilitado=1 AND id_organizacion=:id_organizacion";
-
-            OracleCommand command = new OracleCommand();
-            command.CommandText = sql;
-            command.Connection = this.Conn.Connection;
-            command.Parameters.Add(new OracleParameter("id", OracleDbType.Int32)).Value = this.Curso.Id_organizacion;
-            OracleDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                int id = reader.GetInt32(0);
-                string letra_curso = reader.GetString(1);
-                int id_organizacion = reader.GetInt32(2);
-                int habilitado = reader.GetInt32(3);
-
-                Curso curso = new Curso(id, letra_curso, id_organizacion);
-                lista_curso.Add(curso);
+                Actividad actividad = new Actividad(id, nombre, precio_por_persona, habilitado, id_tipo_actividad);
+                lista_actividad.Add(actividad);
 
             }
 
             this.Conn.Connection.Close();
             command.Dispose();
 
-            return lista_curso;
+            return lista_actividad;
         }
+
 
         public bool ReadById()
         {
             bool found = false;
             this.Conn = new Conexion();
 
-            string sql = "SELECT * FROM CURSO WHERE id_curso=:id";
+            string sql = "SELECT * FROM ACTIVIDAD WHERE id_actividad=:id";
 
             OracleCommand command = new OracleCommand();
             command.CommandText = sql;
             command.Connection = this.Conn.Connection;
-            command.Parameters.Add(new OracleParameter("id", OracleDbType.Int32)).Value = this.Curso.Id;
+            command.Parameters.Add(new OracleParameter("id", OracleDbType.Int32)).Value = this.Actividad.Id;
             OracleDataReader reader = command.ExecuteReader();
             try
             {
                 while (reader.Read())
                 {
-                    this.Curso.Id = reader.GetInt32(0);
-                    this.Curso.Letra_curso = reader.GetString(1);
-                    this.Curso.Id_organizacion = reader.GetInt32(2);
-                    this.Curso.Habilitado = reader.GetInt32(3);
+                    this.Actividad.Id = reader.GetInt32(0);
+                    this.Actividad.Nombre = reader.GetString(1);
+                    this.Actividad.Id_tipo_actividad = reader.GetInt32(2);
+                    this.Actividad.Precio = reader.GetInt32(3);
+                    this.Actividad.Habilitado = reader.GetInt32(4);
 
                 }
                 if (reader.HasRows)
@@ -119,16 +91,17 @@ namespace Model
             bool created = false;
             this.Conn = new Conexion();
 
-            string sql = "INSERT INTO CURSO " +
-                "(letra_curso,id_organizacion)" +
+            string sql = "INSERT INTO ACTIVIDAD " +
+                "(nombre_actividad,id_tipo_actividad,precio_por_persona)" +
                 " VALUES" +
-                "(:letra_curso,:id_organizacion)";
+                "(:nombre,:id_tipo_actividad,:precio)";
 
             OracleCommand command = new OracleCommand();
             command.CommandText = sql;
             command.Connection = this.Conn.Connection;
-            command.Parameters.Add(new OracleParameter("letra_curso", OracleDbType.Varchar2)).Value = this.Curso.Letra_curso;
-            command.Parameters.Add(new OracleParameter("id_organizacion", OracleDbType.Int32)).Value = this.Curso.Id_organizacion;
+            command.Parameters.Add(new OracleParameter("rut", OracleDbType.Varchar2)).Value = this.Actividad.Nombre;
+            command.Parameters.Add(new OracleParameter("id_tipo_actividad", OracleDbType.Int32)).Value = this.Actividad.Id_tipo_actividad;
+            command.Parameters.Add(new OracleParameter("precio", OracleDbType.Int32)).Value = this.Actividad.Precio;
 
             try
             {
@@ -155,16 +128,22 @@ namespace Model
             bool updated = false;
             this.Conn = new Conexion();
 
-            string sql = "UPDATE CURSO SET " +
-                "letra_curso=:letra_curso " +
-                "id_organizacion=:id_organizacion " +
-                " WHERE id_curso=:id";
+            string sql = "UPDATE ACTIVIDAD SET " +
+                "nombre_actividad=:nombre " +
+                "id_tipo_actividad=:id_tipo_actividad " +
+                "precio_por_persona=:precio " +
+                "ap_pat_actividad=:ap_paterno " +
+                "ap_mat_actividad=:ap_materno " +
+                "id_curso=:id_curso " +
+                " WHERE id_actividad=:id";
 
             OracleCommand command = new OracleCommand();
             command.CommandText = sql;
             command.Connection = this.Conn.Connection;
-            command.Parameters.Add(new OracleParameter("letra_curso", OracleDbType.Varchar2)).Value = this.Curso.Letra_curso;
-            command.Parameters.Add(new OracleParameter("id_organizacion", OracleDbType.Int32)).Value = this.Curso.Id_organizacion;
+            command.Parameters.Add(new OracleParameter("nombre_actividad", OracleDbType.Varchar2)).Value = this.Actividad.Nombre;
+            command.Parameters.Add(new OracleParameter("id_tipo_actividad", OracleDbType.Int32)).Value = this.Actividad.Id_tipo_actividad;
+            command.Parameters.Add(new OracleParameter("precio", OracleDbType.Int32)).Value = this.Actividad.Precio;
+            command.Parameters.Add(new OracleParameter("id", OracleDbType.Int32)).Value = this.Actividad.Id_tipo_actividad;
 
             try
             {
@@ -189,13 +168,13 @@ namespace Model
             bool deleted = false;
             this.Conn = new Conexion();
 
-            string sql = "UPDATE CURSO SET habilitado=:habilitado WHERE id_curso=:id";
+            string sql = "UPDATE ACTIVIDAD SET habilitado=:habilitado WHERE id_actividad=:id";
 
             OracleCommand command = new OracleCommand();
             command.CommandText = sql;
             command.Connection = this.Conn.Connection;
             command.Parameters.Add(new OracleParameter(":habilitado", OracleDbType.Int32)).Value = 0;
-            command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = this.Curso.Id;
+            command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = this.Actividad.Id_tipo_actividad;
 
             try
             {
@@ -215,6 +194,5 @@ namespace Model
             return deleted;
 
         }
-
     }
 }

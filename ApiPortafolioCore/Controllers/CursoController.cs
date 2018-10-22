@@ -99,8 +99,8 @@ namespace ApiPortafolioCore.Controllers
 
         }
 
-        // POST api/curso/1/curso
-        [HttpPost("{id_curso}/curso")]
+        // POST api/curso/1/alumno
+        [HttpPost("{id_curso}/alumno")]
         public JsonResult PostCurso(int id_curso, [FromBody]Alumno alumno)
         {
             alumno.Id_curso = id_curso;

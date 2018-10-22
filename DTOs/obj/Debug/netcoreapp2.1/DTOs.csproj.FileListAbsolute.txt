@@ -1,12 +1,9 @@
 C:\Users\Sebastian\source\repos\APIPortafolioCore\DTOs\bin\Debug\netcoreapp2.1\DTOs.deps.json
 C:\Users\Sebastian\source\repos\APIPortafolioCore\DTOs\bin\Debug\netcoreapp2.1\DTOs.dll
 C:\Users\Sebastian\source\repos\APIPortafolioCore\DTOs\bin\Debug\netcoreapp2.1\DTOs.pdb
-C:\Users\Sebastian\source\repos\APIPortafolioCore\DTOs\bin\Debug\netcoreapp2.1\Newtonsoft.Json.dll
-C:\Users\Sebastian\source\repos\APIPortafolioCore\DTOs\bin\Debug\netcoreapp2.1\Newtonsoft.Json.xml
 C:\Users\Sebastian\source\repos\APIPortafolioCore\DTOs\obj\Debug\netcoreapp2.1\DTOs.csproj.CoreCompileInputs.cache
 C:\Users\Sebastian\source\repos\APIPortafolioCore\DTOs\obj\Debug\netcoreapp2.1\DTOs.AssemblyInfoInputs.cache
 C:\Users\Sebastian\source\repos\APIPortafolioCore\DTOs\obj\Debug\netcoreapp2.1\DTOs.AssemblyInfo.cs
-C:\Users\Sebastian\source\repos\APIPortafolioCore\DTOs\obj\Debug\netcoreapp2.1\DTOs.csproj.CopyComplete
 C:\Users\Sebastian\source\repos\APIPortafolioCore\DTOs\obj\Debug\netcoreapp2.1\DTOs.dll
 C:\Users\Sebastian\source\repos\APIPortafolioCore\DTOs\obj\Debug\netcoreapp2.1\DTOs.pdb
 C:\Users\Sebastian\source\repos\APIPortafolioCore\DTOs\obj\Debug\netcoreapp2.1\DTOs.csprojAssemblyReference.cache

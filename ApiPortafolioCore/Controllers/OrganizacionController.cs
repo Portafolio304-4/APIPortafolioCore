@@ -47,6 +47,24 @@ namespace ApiPortafolioCore.Controllers
             }
         }
 
+        // GET api/organizacion
+        [HttpPost]
+        public JsonResult Post([FromBody]Organizacion organizacion)
+        {
+            OrganizacionModel OrganizacioneQuery = new OrganizacionModel(organizacion);
+
+            if (OrganizacioneQuery.Create())
+            {
+                ResponseMenssage response = new ResponseMenssage("success", OrganizacioneQuery.Organizacion);
+                return new JsonResult(response);
+            }
+            else
+            {
+                ResponseMenssage response = new ResponseMenssage("error", "error al crear");
+                return new JsonResult(response);
+            }
+        }
+
         // PUT api/organizacion/1
         [HttpPut("{id}")]
         public JsonResult Put(int id, [FromBody]Organizacion organizacion)
